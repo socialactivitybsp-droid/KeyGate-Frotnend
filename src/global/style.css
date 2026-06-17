@@ -1622,7 +1622,7 @@ td{
   letter-spacing:.08em;
 }
 
-@media (max-width:900px){
+@media (max-width:1024px){
   .app{
     grid-template-columns:1fr;
     grid-template-rows:auto 1fr;
@@ -1652,7 +1652,7 @@ td{
 
 
 /* ── Mobile sidebar polish: keep drawer below sticky header and make toggle state clear ── */
-@media (max-width:900px){
+@media (max-width:1024px){
   .app-shell-header.console-header{
     position:sticky;
     top:0;
@@ -1985,9 +1985,9 @@ kbd{
 }
 
 /* ── Tablet Landscape (1100px) ── */
-@media (max-width: 1100px){
+@media (min-width:1025px) and (max-width: 1100px){
   .split-grid{grid-template-columns:1fr}
-  .app{grid-template-columns:240px 1fr}
+  .app{grid-template-columns:240px minmax(0,1fr)}
 }
 
 /* ── Small Tablet (820px) ── */
@@ -2193,4 +2193,28 @@ kbd{
 }
 @media (max-width:760px){
   .future-grid{grid-template-columns:1fr}
+}
+
+
+/* ── Responsive shell safety fixes ──
+   Keep the account dropdown visible, and prevent tablet desktop grid rules
+   from overriding the mobile one-column shell. */
+.app-shell-header.console-header{overflow:visible}
+.app-shell-header.console-header::before,
+.app-shell-header.console-header::after{z-index:-1}
+.app-shell-desktop{position:relative;z-index:2}
+.user-menu-panel{z-index:999}
+
+@media (min-width:1025px) and (max-width:1100px){
+  .app{grid-template-columns:240px minmax(0,1fr)}
+  .sidebar{display:flex}
+}
+
+@media (max-width:1024px){
+  .app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .sidebar{display:none}
+  .app-shell-header.console-header{display:block;grid-column:1;grid-row:1;min-height:58px}
+  .app-shell-desktop{display:none}
+  .app-shell-mobile.mobile-appbar{display:flex}
+  .main{grid-column:1;grid-row:2;min-height:calc(100dvh - 58px)}
 }
